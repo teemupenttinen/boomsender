@@ -11,7 +11,6 @@
 		2307A8BD25C4839F00293C0B /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2307A8BC25C4839F00293C0B /* HomeViewController.swift */; };
 		2307A8C225C483A100293C0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2307A8C125C483A100293C0B /* Assets.xcassets */; };
 		2307A8C525C483A100293C0B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2307A8C325C483A100293C0B /* LaunchScreen.storyboard */; };
-		2307A8D425C49EB900293C0B /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2307A8D325C49EB900293C0B /* RootViewController.swift */; };
 		2307A8D825C4A18800293C0B /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2307A8D725C4A18800293C0B /* HomeView.swift */; };
 		2307A8E325C55AE800293C0B /* BasicButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2307A8E225C55AE800293C0B /* BasicButton.swift */; };
 		9A63E610604B9DBC83F3E001 /* Pods_BoomSender.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9FD34C98E48A0A097132D2 /* Pods_BoomSender.framework */; };
@@ -24,7 +23,6 @@
 		2307A8C125C483A100293C0B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2307A8C425C483A100293C0B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2307A8C625C483A100293C0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2307A8D325C49EB900293C0B /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		2307A8D725C4A18800293C0B /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		2307A8E225C55AE800293C0B /* BasicButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicButton.swift; sourceTree = "<group>"; };
 		3EF9D128117B55777049AFF5 /* Pods-BoomSender.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoomSender.release.xcconfig"; path = "Target Support Files/Pods-BoomSender/Pods-BoomSender.release.xcconfig"; sourceTree = "<group>"; };
@@ -73,7 +71,6 @@
 				2307A8C125C483A100293C0B /* Assets.xcassets */,
 				2307A8C325C483A100293C0B /* LaunchScreen.storyboard */,
 				2307A8C625C483A100293C0B /* Info.plist */,
-				2307A8D325C49EB900293C0B /* RootViewController.swift */,
 			);
 			path = BoomSender;
 			sourceTree = "<group>";
@@ -243,7 +240,6 @@
 				2307A8E325C55AE800293C0B /* BasicButton.swift in Sources */,
 				2307A8D825C4A18800293C0B /* HomeView.swift in Sources */,
 				2307A8B925C4839F00293C0B /* AppDelegate.swift in Sources */,
-				2307A8D425C49EB900293C0B /* RootViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

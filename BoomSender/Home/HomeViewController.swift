@@ -10,18 +10,23 @@ import SnapKit
 
 class HomeViewController: UIViewController {
 
-    let devices = ["Projector 1", "Projector 2", "TV 1", "TV 2", "Switcher 1", "Switcher 2", "Audio Processor 1"]
+    var devices = ["Projector 1", "Projector 2", "TV 1", "TV 2", "Switcher 1", "Switcher 2", "Audio Processor 1"]
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Home"
         
-        let homeView = HomeView(devices: devices)
-        
+        let homeView = HomeView(devices: devices )
+
         view.addSubview(homeView)
         
         homeView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    }
+    
+    func deleteDevice(idx: Int) {
+        print(idx)
+        devices.remove(at: idx)
     }
 
 

@@ -10,15 +10,17 @@ import UIKit
 class HomeView: UIView {
     
     var devices: [String]
+
+    func convertIntRGBAToCGFloat(r: Int, g: Int, b: Int, a: Int) -> (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
+        return (red: CGFloat(r/255), green: CGFloat(g/255),blue: CGFloat(b/255),alpha: CGFloat(a/255))
+    }
     
     init(devices: [String]) {
         
         self.devices = devices
-        
         super.init(frame: CGRect.zero)
         
         let stackView = UIStackView()
-        
         let titleStack = UIStackView()
         titleStack.axis = .horizontal
         
@@ -27,33 +29,14 @@ class HomeView: UIView {
         listTitle.textColor = .white
         listTitle.font = listTitle.font.withSize(24)
         
-        titleStack.addSubview(listTitle)
-        listTitle.snp.makeConstraints { make in
-            make.height.equalTo(50)
-            make.top.equalTo(100)
-            make.left.equalTo(10)
-        }
-        
         let addButton = UIButton()
-        addButton.setImage(UIImage(systemName: "plus"), for: .normal)
+        addButton.setImage(UIImage(systemName: "plus")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        addButton.tintColor = .white
         addButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         
-        titleStack.addSubview(addButton)
-        addButton.snp.makeConstraints { make in
-            make.height.equalTo(50)
-            make.width.equalTo(50)
-            make.top.equalTo(100)
-            make.right.equalToSuperview().inset(10)
-        }
-        
-        stackView.addSubview(titleStack)
-        titleStack.snp.makeConstraints { make in
-            make.top.equalToSuperview()
-            make.trailing.leading.equalToSuperview()
-        }
-
         var config = UICollectionLayoutListConfiguration(appearance: .plain)
-        config.backgroundColor = UIColor.init(red: 36/255, green: 35/255, blue: 49/255, alpha: 1)
+        let bgColor = convertIntRGBAToCGFloat(r: 36, g: 35, b: 49, a: 255)
+        config.backgroundColor = UIColor(red: bgColor.red, green: bgColor.green, blue: bgColor.blue, alpha: bgColor.alpha)
         let layout = UICollectionViewCompositionalLayout.list(using: config)
         
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
@@ -63,27 +46,46 @@ class HomeView: UIView {
         
         let centerLabel = UILabel()
         centerLabel.text = "This space is reserved for your devices"
-        centerLabel.textColor = UIColor.init(red: 0.9, green: 0.9, blue: 0.9, alpha: 0.3)
+        centerLabel.textColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 0.3)
         centerLabel.font = centerLabel.font.withSize(24)
-        
-        collectionView.addSubview(centerLabel)
-        
         centerLabel.numberOfLines = 0
         centerLabel.textAlignment = .center
+        
+        titleStack.addSubview(listTitle)
+        titleStack.addSubview(addButton)
+        stackView.addSubview(titleStack)
+        collectionView.addSubview(centerLabel)
+        stackView.addSubview(collectionView)
+        addSubview(stackView)
+        
+        listTitle.snp.makeConstraints { make in
+            make.height.equalTo(50)
+            make.top.equalTo(100)
+            make.left.equalTo(10)
+        }
+        
+        addButton.snp.makeConstraints { make in
+            make.height.equalTo(50)
+            make.width.equalTo(50)
+            make.top.equalTo(100)
+            make.right.equalToSuperview().inset(10)
+        }
+        
+        titleStack.snp.makeConstraints { make in
+            make.top.equalToSuperview()
+            make.trailing.leading.equalToSuperview()
+        }
+        
         centerLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
             make.width.equalToSuperview().dividedBy(1.5)
         }
-        
-        stackView.addSubview(collectionView)
         
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(listTitle.snp.bottom)
             make.bottom.equalToSuperview()
             make.width.equalToSuperview()
         }
-
-        addSubview(stackView)
         
         stackView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -98,45 +100,28 @@ class HomeView: UIView {
     @objc func buttonPressed(_ sender: UIButton) {
         print(sender)
     }
-
+    
 }
 
 class DeviceItemCell: UICollectionViewCell {
     static let id = "DeviceItemCell"
     let title = UILabel()
-
+    
     override init(frame: CGRect) {
         super.init(frame: CGRect.zero)
         
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        
         title.textColor = UIColor.black
 
-        stackView.addSubview(title)
+        addSubview(title)
+        self.snp.makeConstraints { (make) in
+            make.height.equalTo(60)
+        }
         
         title.snp.makeConstraints { make in
-            
+            make.centerY.equalToSuperview()
+            make.leading.equalTo(safeAreaLayoutGuide).inset(10)
         }
-        
-        let editButton = UIButton()
-        editButton.setImage(UIImage(systemName: "ellipsis.circle"), for: .normal)
-        //editButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
-        
-        stackView.addSubview(editButton)
-        
-        editButton.snp.makeConstraints { make in
-            make.height.equalToSuperview()
-            make.width.equalTo(50)
-            make.right.equalToSuperview().inset(0)
-        }
-        
-        addSubview(stackView)
-        
-        stackView.snp.makeConstraints { make in
-            make.top.equalToSuperview().inset(10)
-            make.leading.trailing.equalTo(safeAreaLayoutGuide).inset(10)
-        }
+
     }
     
     required init?(coder: NSCoder) {
@@ -147,8 +132,27 @@ class DeviceItemCell: UICollectionViewCell {
 
 
 extension HomeView : UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         devices.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let delete = UIAction(title: "Delete",
+            image: UIImage(systemName: "trash.fill"),
+            attributes: [.destructive]) { action in
+            print(indexPath.row)
+           }
+        
+        let edit = UIAction(title: "Edit",
+            image: UIImage(systemName: "pencil")) { action in
+             print(action)
+           }
+        
+        return UIContextMenuConfiguration(identifier: nil,
+                                          previewProvider: nil) { _ in
+            UIMenu(title: "Actions", children: [edit, delete])
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -167,3 +171,4 @@ extension HomeView: UICollectionViewDelegate {
         //self.openDetails(indexPath.row)
     }
 }
+
