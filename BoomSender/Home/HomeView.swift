@@ -10,10 +10,9 @@ import UIKit
 class HomeView: UIView {
     
     var devices: [String]
-
-    func convertIntRGBAToCGFloat(r: Int, g: Int, b: Int, a: Int) -> (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
-        return (red: CGFloat(r/255), green: CGFloat(g/255),blue: CGFloat(b/255),alpha: CGFloat(a/255))
-    }
+    var deleteCallback: ((_ idx: Int) -> Void)?
+    var addDeviceCallback: (() -> Void)?
+    var collectionView: UICollectionView?
     
     init(devices: [String]) {
         
@@ -32,17 +31,16 @@ class HomeView: UIView {
         let addButton = UIButton()
         addButton.setImage(UIImage(systemName: "plus")?.withRenderingMode(.alwaysTemplate), for: .normal)
         addButton.tintColor = .white
-        addButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+        addButton.addTarget(self, action: #selector(addButtonHandler), for: .touchUpInside)
         
         var config = UICollectionLayoutListConfiguration(appearance: .plain)
-        let bgColor = convertIntRGBAToCGFloat(r: 36, g: 35, b: 49, a: 255)
-        config.backgroundColor = UIColor(red: bgColor.red, green: bgColor.green, blue: bgColor.blue, alpha: bgColor.alpha)
+        config.backgroundColor = UIColor(red: 36/255, green: 35/255, blue: 49/255, alpha: 1)
         let layout = UICollectionViewCompositionalLayout.list(using: config)
         
-        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        collectionView.register(DeviceItemCell.self, forCellWithReuseIdentifier: DeviceItemCell.id)
-        collectionView.dataSource = self
-        collectionView.delegate = self
+        collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        collectionView?.register(DeviceItemCell.self, forCellWithReuseIdentifier: DeviceItemCell.id)
+        collectionView?.dataSource = self
+        collectionView?.delegate = self
         
         let centerLabel = UILabel()
         centerLabel.text = "This space is reserved for your devices"
@@ -51,29 +49,33 @@ class HomeView: UIView {
         centerLabel.numberOfLines = 0
         centerLabel.textAlignment = .center
         
-        titleStack.addSubview(listTitle)
         titleStack.addSubview(addButton)
+        titleStack.addSubview(listTitle)
+        //stackView.addSubview(addButton)
         stackView.addSubview(titleStack)
-        collectionView.addSubview(centerLabel)
-        stackView.addSubview(collectionView)
-        addSubview(stackView)
+        collectionView?.addSubview(centerLabel)
         
+        if let c = collectionView {
+            stackView.addSubview(c)
+        }
+        
+        addSubview(stackView)
+
         listTitle.snp.makeConstraints { make in
             make.height.equalTo(50)
-            make.top.equalTo(100)
             make.left.equalTo(10)
+            make.right.equalTo(addButton.snp.left)
         }
         
         addButton.snp.makeConstraints { make in
-            make.height.equalTo(50)
-            make.width.equalTo(50)
-            make.top.equalTo(100)
+            make.height.width.equalTo(50)
             make.right.equalToSuperview().inset(10)
         }
         
         titleStack.snp.makeConstraints { make in
-            make.top.equalToSuperview()
+            make.top.equalTo(safeAreaLayoutGuide)
             make.trailing.leading.equalToSuperview()
+            make.height.equalTo(50)
         }
         
         centerLabel.snp.makeConstraints { make in
@@ -81,8 +83,8 @@ class HomeView: UIView {
             make.width.equalToSuperview().dividedBy(1.5)
         }
         
-        collectionView.snp.makeConstraints { make in
-            make.top.equalTo(listTitle.snp.bottom)
+        collectionView?.snp.makeConstraints { make in
+            make.top.equalTo(titleStack.snp.bottom)
             make.bottom.equalToSuperview()
             make.width.equalToSuperview()
         }
@@ -93,12 +95,17 @@ class HomeView: UIView {
         
     }
     
+    func updateDevices(newDevices: [String]) {
+        self.devices = newDevices
+        collectionView?.reloadData()
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func buttonPressed(_ sender: UIButton) {
-        print(sender)
+    @objc func addButtonHandler(_ sender: UIButton) {
+        self.addDeviceCallback?()
     }
     
 }
@@ -111,17 +118,17 @@ class DeviceItemCell: UICollectionViewCell {
         super.init(frame: CGRect.zero)
         
         title.textColor = UIColor.black
-
-        addSubview(title)
-        self.snp.makeConstraints { (make) in
-            make.height.equalTo(60)
-        }
         
+        self.addSubview(title)
+        self.snp.makeConstraints { (make) in
+            make.height.equalTo(60).priority(999)
+        }
         title.snp.makeConstraints { make in
+            make.height.equalTo(60)
             make.centerY.equalToSuperview()
             make.leading.equalTo(safeAreaLayoutGuide).inset(10)
         }
-
+        
     }
     
     required init?(coder: NSCoder) {
@@ -141,7 +148,7 @@ extension HomeView : UICollectionViewDataSource {
         let delete = UIAction(title: "Delete",
             image: UIImage(systemName: "trash.fill"),
             attributes: [.destructive]) { action in
-            print(indexPath.row)
+            self.deleteCallback?(indexPath.row)
            }
         
         let edit = UIAction(title: "Edit",
@@ -167,8 +174,7 @@ extension HomeView : UICollectionViewDataSource {
 
 extension HomeView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.row)
-        //self.openDetails(indexPath.row)
+        
     }
 }
 

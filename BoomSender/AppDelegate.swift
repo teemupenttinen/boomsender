@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         nav.navigationBar.barTintColor = UIColor(red: 36/255, green: 35/255, blue: 49/255, alpha: 1)
         nav.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         
-        nav.viewControllers = [HomeViewController()]
+        nav.viewControllers = [DeviceViewController()]
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor(red: 36/255, green: 35/255, blue: 49/255, alpha: 1)
