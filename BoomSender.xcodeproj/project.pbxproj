@@ -19,6 +19,12 @@
 		231DA22225E025F3007E6F98 /* TextFieldWithLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231DA22125E025F3007E6F98 /* TextFieldWithLabel.swift */; };
 		231DA22525E59186007E6F98 /* BottomPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231DA22425E59186007E6F98 /* BottomPicker.swift */; };
 		231DA22825E59AC9007E6F98 /* TextFieldNoCaret.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231DA22725E59AC9007E6F98 /* TextFieldNoCaret.swift */; };
+		231DA22B25E827D4007E6F98 /* SegmentedControlWithLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231DA22A25E827D4007E6F98 /* SegmentedControlWithLabel.swift */; };
+		231DA22E25E82B92007E6F98 /* NumberFieldWithLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231DA22D25E82B92007E6F98 /* NumberFieldWithLabel.swift */; };
+		231DA23125E82BAA007E6F98 /* NumberField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231DA23025E82BAA007E6F98 /* NumberField.swift */; };
+		231DA23425E834B3007E6F98 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231DA23325E834B3007E6F98 /* CollectionView.swift */; };
+		231DA23B25EA5AC6007E6F98 /* CommandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231DA23A25EA5AC6007E6F98 /* CommandView.swift */; };
+		231DA23E25EA5AD1007E6F98 /* CommandViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231DA23D25EA5AD1007E6F98 /* CommandViewController.swift */; };
 		9A63E610604B9DBC83F3E001 /* Pods_BoomSender.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9FD34C98E48A0A097132D2 /* Pods_BoomSender.framework */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +43,12 @@
 		231DA22125E025F3007E6F98 /* TextFieldWithLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithLabel.swift; sourceTree = "<group>"; };
 		231DA22425E59186007E6F98 /* BottomPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomPicker.swift; sourceTree = "<group>"; };
 		231DA22725E59AC9007E6F98 /* TextFieldNoCaret.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldNoCaret.swift; sourceTree = "<group>"; };
+		231DA22A25E827D4007E6F98 /* SegmentedControlWithLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControlWithLabel.swift; sourceTree = "<group>"; };
+		231DA22D25E82B92007E6F98 /* NumberFieldWithLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFieldWithLabel.swift; sourceTree = "<group>"; };
+		231DA23025E82BAA007E6F98 /* NumberField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberField.swift; sourceTree = "<group>"; };
+		231DA23325E834B3007E6F98 /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
+		231DA23A25EA5AC6007E6F98 /* CommandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandView.swift; sourceTree = "<group>"; };
+		231DA23D25EA5AD1007E6F98 /* CommandViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandViewController.swift; sourceTree = "<group>"; };
 		3EF9D128117B55777049AFF5 /* Pods-BoomSender.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoomSender.release.xcconfig"; path = "Target Support Files/Pods-BoomSender/Pods-BoomSender.release.xcconfig"; sourceTree = "<group>"; };
 		5E9FD34C98E48A0A097132D2 /* Pods_BoomSender.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoomSender.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B7320F592383A615EFAF481 /* Pods-BoomSender.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoomSender.debug.xcconfig"; path = "Target Support Files/Pods-BoomSender/Pods-BoomSender.debug.xcconfig"; sourceTree = "<group>"; };
@@ -75,6 +87,7 @@
 		2307A8B725C4839F00293C0B /* BoomSender */ = {
 			isa = PBXGroup;
 			children = (
+				231DA23925EA5AAD007E6F98 /* Command */,
 				2307A8E525C55C7400293C0B /* Components */,
 				2307A8DC25C4A1BC00293C0B /* Device */,
 				2307A8DB25C4A1AC00293C0B /* Control */,
@@ -120,8 +133,21 @@
 				231DA22125E025F3007E6F98 /* TextFieldWithLabel.swift */,
 				231DA22425E59186007E6F98 /* BottomPicker.swift */,
 				231DA22725E59AC9007E6F98 /* TextFieldNoCaret.swift */,
+				231DA22A25E827D4007E6F98 /* SegmentedControlWithLabel.swift */,
+				231DA22D25E82B92007E6F98 /* NumberFieldWithLabel.swift */,
+				231DA23025E82BAA007E6F98 /* NumberField.swift */,
+				231DA23325E834B3007E6F98 /* CollectionView.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		231DA23925EA5AAD007E6F98 /* Command */ = {
+			isa = PBXGroup;
+			children = (
+				231DA23A25EA5AC6007E6F98 /* CommandView.swift */,
+				231DA23D25EA5AD1007E6F98 /* CommandViewController.swift */,
+			);
+			path = Command;
 			sourceTree = "<group>";
 		};
 		B49D618B5F9178AD1DE40602 /* Pods */ = {
@@ -256,11 +282,17 @@
 			files = (
 				231DA22225E025F3007E6F98 /* TextFieldWithLabel.swift in Sources */,
 				2307A8BD25C4839F00293C0B /* HomeViewController.swift in Sources */,
+				231DA23425E834B3007E6F98 /* CollectionView.swift in Sources */,
+				231DA22E25E82B92007E6F98 /* NumberFieldWithLabel.swift in Sources */,
+				231DA23E25EA5AD1007E6F98 /* CommandViewController.swift in Sources */,
 				231DA22825E59AC9007E6F98 /* TextFieldNoCaret.swift in Sources */,
 				2307A8E325C55AE800293C0B /* BasicButton.swift in Sources */,
 				231DA21C25DF1DA5007E6F98 /* DeviceViewController.swift in Sources */,
+				231DA22B25E827D4007E6F98 /* SegmentedControlWithLabel.swift in Sources */,
+				231DA23B25EA5AC6007E6F98 /* CommandView.swift in Sources */,
 				231DA21F25E02542007E6F98 /* TextField.swift in Sources */,
 				231DA21925DF1D96007E6F98 /* DeviceView.swift in Sources */,
+				231DA23125E82BAA007E6F98 /* NumberField.swift in Sources */,
 				2307A8D825C4A18800293C0B /* HomeView.swift in Sources */,
 				231DA22525E59186007E6F98 /* BottomPicker.swift in Sources */,
 				2307A8B925C4839F00293C0B /* AppDelegate.swift in Sources */,

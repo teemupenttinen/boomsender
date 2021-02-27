@@ -1,14 +1,14 @@
 //
-//  DeviceView.swift
+//  CommandView.swift
 //  BoomSender
 //
-//  Created by Teemu Penttinen on 19.2.2021.
+//  Created by Teemu Penttinen on 27.2.2021.
 //
 
 import UIKit
 import SnapKit
 
-class DeviceView: UIView {
+class CommandView: UIView {
     
     var name: String = ""
     var port: Int = 80

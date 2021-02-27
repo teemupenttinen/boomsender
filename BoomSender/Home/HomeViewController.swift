@@ -23,17 +23,17 @@ class HomeViewController: UIViewController {
             make.edges.equalToSuperview()
         }
         
-        homeView.deleteCallback = { [weak self] idx in
-            guard let self = self else { return }
-            self.devices.remove(at: idx)
-            homeView.updateDevices(newDevices: self.devices)
-        }
-        
-        homeView.addDeviceCallback = { [weak self] in
-            guard let self = self else { return }
-            print("ASD")
-            self.navigationController?.pushViewController(DeviceViewController(), animated: false)
-        }
+//        homeView.deleteCallback = { [weak self] idx in
+//            guard let self = self else { return }
+//            self.devices.remove(at: idx)
+//            homeView.updateDevices(newDevices: self.devices)
+//        }
+//
+//        homeView.addDeviceCallback = { [weak self] in
+//            guard let self = self else { return }
+//            print("ASD")
+//            self.navigationController?.pushViewController(DeviceViewController(), animated: false)
+//        }
         
     }
 }

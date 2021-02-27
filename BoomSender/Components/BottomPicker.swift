@@ -47,7 +47,6 @@ class BottomPicker: UIView {
             make.width.equalToSuperview()
         }
         
-
         picker = UIPickerView()
         picker.backgroundColor = .white
 
@@ -56,12 +55,11 @@ class BottomPicker: UIView {
 
         let toolBar = UIToolbar()
         toolBar.barStyle = .default
-        //toolBar.isTranslucent = true
-        //toolBar.tintColor = UIColor(red: 76/255, green: 217/255, blue: 100/255, alpha: 1)
         toolBar.sizeToFit()
 
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItem.Style.done, target: self, action: #selector(self.donePicker))
         doneButton.tintColor = .systemBlue
+        
         let spacer = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         
         let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItem.Style.plain, target: self, action: #selector(self.donePicker))
@@ -103,24 +101,6 @@ extension BottomPicker: UIPickerViewDataSource {
         return 50
     }
     
-    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-
-        let label = UILabel()
-        let rowView = UIView()
-        rowView.backgroundColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 0.9)
-        rowView.layer.cornerRadius = 10
-        
-        
-        label.text = options[row]
-        label.textColor = .black
-        rowView.addSubview(label)
-        
-        label.snp.makeConstraints { (make) in
-            make.center.equalToSuperview()
-        }
-        
-        return rowView
-    }
 }
 
 

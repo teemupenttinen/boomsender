@@ -1,34 +1,33 @@
 //
-//  TextFieldWithLabel.swift
+//  SegmentedControlWithLabel.swift
 //  BoomSender
 //
-//  Created by Teemu Penttinen on 19.2.2021.
+//  Created by Teemu Penttinen on 25.2.2021.
 //
 
 import UIKit
-import SnapKit
 
-class TextFieldWithLabel: UIView {
+class SegmentedControlWithLabel: UIView {
     
-    var textChangedHandler: ((_ sender: UITextField) -> Void)?
-    
-    init(label: String, keyboardType: UIKeyboardType = .default) {
+    init(items: [String], label: String){
         super.init(frame: .zero)
         
         let textLabel = UILabel()
         textLabel.text = label
         textLabel.textColor = .white
-        
-        let textField = TextField()
-        textField.keyboardType = keyboardType
-        textField.addTarget(self, action: #selector(textChanged), for: .editingChanged)
-        textLabel.font = textLabel.font.withSize(22)
-        
+       
+        let segmentedControl = UISegmentedControl(items: items)
+        segmentedControl.addTarget(self, action: #selector(valueChanged), for: .valueChanged)
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
+        segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
         let stackView = UIStackView()
         
         stackView.addSubview(textLabel)
-        stackView.addSubview(textField)
+        stackView.addSubview(segmentedControl)
         addSubview(stackView)
+        
+       
+        textLabel.font = textLabel.font.withSize(22)
         
         stackView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview().inset(15)
@@ -39,7 +38,7 @@ class TextFieldWithLabel: UIView {
             make.height.equalToSuperview().dividedBy(3.5)
         }
         
-        textField.snp.makeConstraints { (make) in
+        segmentedControl.snp.makeConstraints { (make) in
             make.top.equalTo(textLabel.snp.bottom).offset(10)
             make.height.equalToSuperview().dividedBy(1.5)
             make.width.equalToSuperview()
@@ -47,8 +46,8 @@ class TextFieldWithLabel: UIView {
 
     }
     
-    @objc func textChanged(_ textField: UITextField) {
-        textChangedHandler?(textField)
+    @objc func valueChanged(_ sender: UISegmentedControl) {
+        
     }
     
     required init?(coder: NSCoder) {
