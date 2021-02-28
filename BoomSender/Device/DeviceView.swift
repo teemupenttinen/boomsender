@@ -14,6 +14,7 @@ class DeviceView: UIView {
     var port: Int = 80
     let CONTROL_OPTIONS = ["TCP", "UDP"]
     var deleteCallback: ((_ idx: Int) -> Void)?
+    var addCommandCallback: (() -> Void)?
     
     init() {
         super.init(frame: CGRect.zero)
@@ -36,7 +37,7 @@ class DeviceView: UIView {
         
         let collectionView = CollectionView(items: ["Dog", "Cat", "Horse", "Asd", "asf"], title: "Commands")
         collectionView.addCallback = { [weak self] in
-            
+            self?.addCommandCallback?()
         }
         
         let saveButton = BasicButton(content: "Save")

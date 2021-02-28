@@ -6,73 +6,51 @@
 //
 
 import UIKit
+import SnapKit
 
 class HomeView: UIView {
     
-//    var devices: [String]
-//    var deleteCallback: ((_ idx: Int) -> Void)?
-//    var addDeviceCallback: (() -> Void)?
-//    var collectionView: UICollectionView?
+    var devices: [String] = []
+    var deleteDeviceCallback: ((_ idx: Int) -> Void)?
+    var editDeviceCallback: ((_ idx: Int) -> Void)?
+    var addDeviceCallback: (() -> Void)?
+    var collectionView: CollectionView?
     
     init(devices: [String]) {
         
-//        self.devices = devices
         super.init(frame: CGRect.zero)
+        self.devices = devices
+        collectionView = CollectionView(items: devices, title: "Devices", placeholder: "Add your first device!")
         
-//        let stackView = UIStackView()
-//        let titleStack = UIStackView()
-//        titleStack.axis = .horizontal
-//
-//        let listTitle = UILabel()
-//        listTitle.text = "Devices"
-//        listTitle.textColor = .white
-//        listTitle.font = listTitle.font.withSize(24)
-//
-//        let centerLabel = UILabel()
-//        centerLabel.text = "This space is reserved for your devices"
-//        centerLabel.textColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 0.3)
-//        centerLabel.font = centerLabel.font.withSize(24)
-//        centerLabel.numberOfLines = 0
-//        centerLabel.textAlignment = .center
-//
-//        //collectionView?.addSubview(centerLabel)
-//
-//        if let c = collectionView {
-//            stackView.addSubview(c)
-//        }
-//
-//        addSubview(stackView)
-
-       
+        collectionView?.addCallback = { [weak self] in
+            self?.addDeviceCallback?()
+        }
         
-//        centerLabel.snp.makeConstraints { make in
-//            make.center.equalToSuperview()
-//            make.width.equalToSuperview().dividedBy(1.5)
-//        }
+        collectionView?.editCallback = { [weak self] idx in
+            self?.editDeviceCallback?(idx)
+        }
         
-//        collectionView?.snp.makeConstraints { make in
-//            make.top.equalTo(titleStack.snp.bottom)
-//            make.bottom.equalToSuperview()
-//            make.width.equalToSuperview()
-//        }
+        collectionView?.deleteCallback = { [weak self] idx in
+            self?.deleteDeviceCallback?(idx)
+        }
+                
+        if let c = collectionView {
+            addSubview(c)
+        }
         
-//        stackView.snp.makeConstraints { make in
-//            make.edges.equalToSuperview()
-//        }
-        
+        collectionView?.snp.makeConstraints { make in
+            make.top.equalTo(safeAreaLayoutGuide)
+            make.bottom.equalToSuperview()
+            make.width.equalToSuperview()
+        }
     }
     
-//    func updateDevices(newDevices: [String]) {
-//        self.devices = newDevices
-//        collectionView?.reloadData()
-//    }
+    func updateDevices(newDevices: [String]) {
+        self.devices = newDevices
+        collectionView?.reloadData()
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-//    @objc func addButtonHandler(_ sender: UIButton) {
-//        self.addDeviceCallback?()
-//    }
-//
 }

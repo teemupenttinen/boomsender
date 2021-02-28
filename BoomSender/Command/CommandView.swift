@@ -10,11 +10,8 @@ import SnapKit
 
 class CommandView: UIView {
     
-    var name: String = ""
-    var port: Int = 80
-    let CONTROL_OPTIONS = ["TCP", "UDP"]
-    var deleteCallback: ((_ idx: Int) -> Void)?
-    
+    var name = ""
+    var command = ""
     init() {
         super.init(frame: CGRect.zero)
         
@@ -24,26 +21,15 @@ class CommandView: UIView {
             self.name = input.text ?? ""
         }
         
-        let controlMethodSelector = SegmentedControlWithLabel(items: CONTROL_OPTIONS, label: "Control method")
-        
-        let portField = TextFieldWithLabel(label: "Port", keyboardType: .decimalPad)
-        portField.textChangedHandler = { [weak self] input in
+        let commandField = TextViewWithLabel(label: "Command")
+        commandField.textChangedHandler = { [weak self] input in
             guard let self = self else { return }
-            if let port = input.text {
-                self.port = Int(port) ?? 0
-            }
-        }
-        
-        let collectionView = CollectionView(items: ["Dog", "Cat", "Horse", "Asd", "asf"], title: "Commands")
-        collectionView.addCallback = { [weak self] in
-            
+            self.command = input.text ?? ""
         }
         
         let saveButton = BasicButton(content: "Save")
         addSubview(nameField)
-        addSubview(controlMethodSelector)
-        addSubview(portField)
-        addSubview(collectionView)
+        addSubview(commandField)
         addSubview(saveButton)
 
         nameField.snp.makeConstraints { (make) in
@@ -52,24 +38,11 @@ class CommandView: UIView {
             make.top.left.right.equalTo(safeAreaLayoutGuide)
         }
         
-        controlMethodSelector.snp.makeConstraints { (make) in
-            make.height.equalTo(100)
+        commandField.snp.makeConstraints { (make) in
+            make.height.equalTo(200)
             make.width.equalToSuperview()
             make.left.right.equalTo(safeAreaLayoutGuide)
-            make.top.equalTo(nameField.snp.bottom).offset(20)
-        }
-        
-        portField.snp.makeConstraints { (make) in
-            make.height.equalTo(100)
-            make.width.equalToSuperview()
-            make.left.right.equalTo(safeAreaLayoutGuide)
-            make.top.equalTo(controlMethodSelector.snp.bottom).offset(20)
-        }
-        
-        collectionView.snp.makeConstraints { make in
-            make.top.equalTo(portField.snp.bottom).offset(20)
-            make.width.equalToSuperview()
-            make.height.equalTo(300)
+            make.top.equalTo(nameField.snp.bottom)
         }
         
         saveButton.snp.makeConstraints { (make) in

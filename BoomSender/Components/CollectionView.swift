@@ -10,11 +10,26 @@ import UIKit
 class CollectionView: UIView {
     
     var items: [String] = []
+    var placeholderItem: String?
     var deleteCallback: ((_ idx: Int) -> Void)?
     var addCallback: (() -> Void)?
+    var editCallback: ((_ idx: Int) -> Void)?
+    var collectionView: UICollectionView?
     init(items: [String], title: String) {
+        
         super.init(frame: .zero)
         self.items = items
+        setupView(title: title)
+    }
+    
+    init(items: [String], title: String, placeholder: String) {
+        super.init(frame: .zero)
+        self.items = items
+        self.placeholderItem = placeholder
+        setupView(title: title)
+    }
+    
+    func setupView(title: String) {
         let titleStack = UIStackView()
         titleStack.axis = .horizontal
         
@@ -34,17 +49,20 @@ class CollectionView: UIView {
         config.backgroundColor = UIColor(red: 36/255, green: 35/255, blue: 49/255, alpha: 1)
         let layout = UICollectionViewCompositionalLayout.list(using: config)
         
-        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        collectionView.register(DeviceItemCell.self, forCellWithReuseIdentifier: DeviceItemCell.id)
-        collectionView.dataSource = self
-        collectionView.delegate = self
+        collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        collectionView?.register(DeviceItemCell.self, forCellWithReuseIdentifier: DeviceItemCell.id)
+        collectionView?.dataSource = self
+        collectionView?.delegate = self
         
         titleStack.addArrangedSubview(listTitle)
         titleStack.addArrangedSubview(addButton)
         
         addSubview(titleStack)
-        addSubview(collectionView)
         
+        if let c = collectionView {
+            addSubview(c)
+        }
+       
         listTitle.snp.makeConstraints { make in
             make.height.equalToSuperview()
             make.left.equalTo(15)
@@ -62,13 +80,17 @@ class CollectionView: UIView {
             make.top.equalToSuperview()
         }
         
-        collectionView.snp.makeConstraints { make in
+        collectionView?.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.bottom.equalToSuperview().inset(20)
             make.top.equalTo(titleStack.snp.bottom)
         }
     }
-
+    
+    func reloadData() {
+        collectionView?.reloadData()
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -105,39 +127,54 @@ class DeviceItemCell: UICollectionViewCell {
 extension CollectionView : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        items.count
+        if items.count == 0 && placeholderItem != nil {
+            return 1
+        }
+        
+        return items.count
     }
     
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         let delete = UIAction(title: "Delete",
-            image: UIImage(systemName: "trash.fill"),
-            attributes: [.destructive]) { action in
+                              image: UIImage(systemName: "trash.fill"),
+                              attributes: [.destructive]) { action in
             self.deleteCallback?(indexPath.row)
-           }
+        }
         
         let edit = UIAction(title: "Edit",
-            image: UIImage(systemName: "pencil")) { action in
-             print(action)
-           }
-        
-        return UIContextMenuConfiguration(identifier: nil,
-                                          previewProvider: nil) { _ in
-            UIMenu(title: "Actions", children: [edit, delete])
+                            image: UIImage(systemName: "pencil")) { action in
+            self.editCallback?(indexPath.row)
         }
+        
+        if items.count > 0 {
+            return UIContextMenuConfiguration(identifier: nil,
+                                              previewProvider: nil) { _ in
+                UIMenu(title: "Actions", children: [edit, delete])
+            }
+        }
+       return nil
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DeviceItemCell.id, for: indexPath) as? DeviceItemCell else {
             fatalError("failed to dequeue cell with cell id \(DeviceItemCell.id)")
         }
+        
         cell.backgroundColor = .white
-        cell.title.text = items[indexPath.row]
+        
+        if items.count == 0 && placeholderItem != nil {
+            cell.title.text = placeholderItem
+        }
+        else {
+            cell.title.text = items[indexPath.row]
+        }
+        
         return cell
     }
 }
 
 extension CollectionView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        print(indexPath.row)
     }
 }
