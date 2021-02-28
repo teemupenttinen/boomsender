@@ -20,13 +20,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         nav.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
         
         nav.viewControllers = [HomeViewController()]
-        
+
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor(red: 36/255, green: 35/255, blue: 49/255, alpha: 1)
         window?.rootViewController = nav
         window?.makeKeyAndVisible()
         return true
     }
-
 }
 

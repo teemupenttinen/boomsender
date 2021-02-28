@@ -22,13 +22,20 @@ class HomeViewController: UIViewController {
         homeView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-    }
-    
-    func deleteDevice(idx: Int) {
-        print(idx)
-        devices.remove(at: idx)
-    }
+        
+        homeView.deleteDeviceCallback = { [weak self] idx in
+            guard let self = self else { return }
+            self.devices.remove(at: idx)
+            homeView.updateDevices(newDevices: self.devices)
+        }
 
-
+        homeView.addDeviceCallback = { [weak self] in
+            guard let self = self else { return }
+            self.navigationController?.pushViewController(DeviceViewController(), animated: false)
+        }
+        
+        
+        
+    }
 }
 
