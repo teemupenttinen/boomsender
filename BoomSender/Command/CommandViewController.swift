@@ -9,6 +9,8 @@ import UIKit
 
 class CommandViewController: UIViewController {
 
+    var saveCallback: ((_ command: String) -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Command"
@@ -21,5 +23,9 @@ class CommandViewController: UIViewController {
             make.edges.equalToSuperview()
         }
         
+        commandView.saveCallback = { [weak self] command in
+            self?.saveCallback?(command)
+            print(command)
+        }
     }
 }

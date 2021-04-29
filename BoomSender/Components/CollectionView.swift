@@ -62,26 +62,25 @@ class CollectionView: UIView {
         if let c = collectionView {
             addSubview(c)
         }
+        
+        titleStack.snp.makeConstraints { make in
+            make.height.equalTo(50)
+            make.width.top.equalToSuperview()
+        }
        
         listTitle.snp.makeConstraints { make in
             make.height.equalToSuperview()
-            make.left.equalTo(15)
+            make.leading.equalTo(titleStack.snp.leading).inset(15)
         }
         
         addButton.snp.makeConstraints { make in
             make.width.equalTo(50)
             make.height.equalToSuperview()
-            make.right.equalTo(10)
-        }
-        
-        titleStack.snp.makeConstraints { make in
-            make.height.equalTo(50)
-            make.left.right.equalToSuperview()
-            make.top.equalToSuperview()
+            make.trailing.equalTo(titleStack.snp.trailing).offset(10)
         }
         
         collectionView?.snp.makeConstraints { make in
-            make.left.right.equalToSuperview()
+            make.width.equalToSuperview()
             make.bottom.equalToSuperview().inset(20)
             make.top.equalTo(titleStack.snp.bottom)
         }
@@ -105,14 +104,14 @@ class DeviceItemCell: UICollectionViewCell {
         
         title.textColor = UIColor.black
         
-        self.addSubview(title)
+        self.contentView.addSubview(title)
         self.snp.makeConstraints { (make) in
-            make.height.equalTo(60).priority(999)
+            make.height.equalTo(60)
         }
         title.snp.makeConstraints { make in
             make.height.equalTo(60)
             make.centerY.equalToSuperview()
-            make.leading.equalTo(safeAreaLayoutGuide).inset(10)
+            make.left.equalToSuperview().inset(10)
         }
         
     }

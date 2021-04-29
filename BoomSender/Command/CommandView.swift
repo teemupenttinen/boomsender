@@ -12,6 +12,8 @@ class CommandView: UIView {
     
     var name = ""
     var command = ""
+    var saveCallback: ((_ command: String) -> Void)?
+    
     init() {
         super.init(frame: CGRect.zero)
         
@@ -28,6 +30,11 @@ class CommandView: UIView {
         }
         
         let saveButton = BasicButton(content: "Save")
+        
+        saveButton.addAction(UIAction(handler: { (UIAction) in
+            self.saveCallback?(self.name)
+        }), for: .touchUpInside)
+        
         addSubview(nameField)
         addSubview(commandField)
         addSubview(saveButton)

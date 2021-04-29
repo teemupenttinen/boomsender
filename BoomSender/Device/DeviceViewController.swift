@@ -22,9 +22,16 @@ class DeviceViewController: UIViewController {
             make.edges.equalToSuperview()
         }
         
+        
         deviceView.addCommandCallback = { [weak self] in
-            self?.navigationController?.pushViewController(CommandViewController(), animated: false)
+            let commandViewController = CommandViewController()
+            commandViewController.saveCallback = { [weak self] name in
+                print("Name: \(name)")
+            }
+            
+            self?.navigationController?.pushViewController(commandViewController, animated: false)
         }
+        
         
     }
 }

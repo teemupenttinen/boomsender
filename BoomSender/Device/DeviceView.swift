@@ -69,8 +69,8 @@ class DeviceView: UIView {
         
         collectionView.snp.makeConstraints { make in
             make.top.equalTo(portField.snp.bottom).offset(20)
+            make.bottom.equalTo(saveButton.snp.topMargin)
             make.width.equalToSuperview()
-            make.height.equalTo(300)
         }
         
         saveButton.snp.makeConstraints { (make) in
