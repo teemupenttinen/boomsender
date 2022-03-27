@@ -12,7 +12,7 @@ class TextFieldWithLabel: UIView {
     
     var textChangedHandler: ((_ sender: UITextField) -> Void)?
     
-    init(label: String, keyboardType: UIKeyboardType = .default) {
+    init(label: String, initialValue: String = "", keyboardType: UIKeyboardType = .default) {
         super.init(frame: .zero)
         
         let textLabel = UILabel()
@@ -21,6 +21,7 @@ class TextFieldWithLabel: UIView {
         
         let textField = TextField()
         textField.keyboardType = keyboardType
+        textField.text = initialValue
         textField.addTarget(self, action: #selector(textChanged), for: .editingChanged)
         textLabel.font = textLabel.font.withSize(22)
         

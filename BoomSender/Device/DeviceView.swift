@@ -12,22 +12,37 @@ class DeviceView: UIView {
     
     var name: String = ""
     var port: Int = 80
-    let CONTROL_OPTIONS = ["TCP", "UDP"]
+    var controlMethod: ControlMethod = ControlMethod.TCP
+    private let CONTROL_OPTIONS = [ControlMethod.TCP, ControlMethod.UDP]
     var deleteCallback: ((_ idx: Int) -> Void)?
     var addCommandCallback: (() -> Void)?
+    var save: (() -> Void)?
     
-    init() {
+    var collectionView: CollectionView?;
+    
+    init(device: Device?) {
         super.init(frame: CGRect.zero)
         
-        let nameField = TextFieldWithLabel(label: "Name")
-        nameField.textChangedHandler = { [weak self] input in
-            guard let self = self else { return }
-            self.name = input.text ?? ""
+        if let d = device {
+            name = d.name
+            port = d.port
+            controlMethod = d.controlMethod
         }
         
-        let controlMethodSelector = SegmentedControlWithLabel(items: CONTROL_OPTIONS, label: "Control method")
+        let nameField = TextFieldWithLabel(label: "Name", initialValue: name)
+        nameField.textChangedHandler = { [weak self] input in
+            guard let self = self else { return }
+            if let text = input.text {
+                self.name = text
+            }
+        }
         
-        let portField = TextFieldWithLabel(label: "Port", keyboardType: .decimalPad)
+        let controlMethodSelector = SegmentedControlWithLabel(items: CONTROL_OPTIONS.map { $0.rawValue }, label: "Control method")
+        controlMethodSelector.changedHandler = { [weak self] input in
+            self?.controlMethod = self?.CONTROL_OPTIONS[input.selectedSegmentIndex] ?? ControlMethod.TCP
+        }
+        
+        let portField = TextFieldWithLabel(label: "Port", initialValue: String(port), keyboardType: .decimalPad)
         portField.textChangedHandler = { [weak self] input in
             guard let self = self else { return }
             if let port = input.text {
@@ -35,16 +50,18 @@ class DeviceView: UIView {
             }
         }
         
-        let collectionView = CollectionView(items: ["Dog", "Cat", "Horse", "Asd", "asf"], title: "Commands")
-        collectionView.addCallback = { [weak self] in
+        self.collectionView = CollectionView(items: [], title: "Commands")
+        self.collectionView?.addCallback = { [weak self] in
             self?.addCommandCallback?()
         }
         
         let saveButton = BasicButton(content: "Save")
+        saveButton.addTarget(self, action: #selector(saveHandler), for: .touchUpInside)
+
         addSubview(nameField)
         addSubview(controlMethodSelector)
         addSubview(portField)
-        addSubview(collectionView)
+        addSubview(collectionView!)
         addSubview(saveButton)
 
         nameField.snp.makeConstraints { (make) in
@@ -67,7 +84,7 @@ class DeviceView: UIView {
             make.top.equalTo(controlMethodSelector.snp.bottom).offset(20)
         }
         
-        collectionView.snp.makeConstraints { make in
+        collectionView?.snp.makeConstraints { make in
             make.top.equalTo(portField.snp.bottom).offset(20)
             make.width.equalToSuperview()
             make.height.equalTo(300)
@@ -87,8 +104,9 @@ class DeviceView: UIView {
     @objc func handleGesture() {
         endEditing(false)
     }
-    @objc func controlMethodSelected(_ sender: UISegmentedControl) {
-        
+    
+    @objc func saveHandler(_ sender: UIButton) {
+        save?()
     }
     
     required init?(coder: NSCoder) {

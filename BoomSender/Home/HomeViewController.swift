@@ -10,13 +10,20 @@ import SnapKit
 
 class HomeViewController: UIViewController {
 
-    var devices = ["Projector 1", "Projector 2", "TV 1", "TV 2", "Switcher 1", "Switcher 2", "Audio Processor 1"]
+    var devices: [Device] = [Device(name: "Testi", controlMethod: ControlMethod.TCP, commands: [Command(name: "PowerOn", command: "PowerOff\0a")], port: 9000)]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Home"
         
         let homeView = HomeView(devices: devices )
-
+        let deviceViewController = DeviceViewController(device: nil)
+        
+        deviceViewController.saveNewDevice = { [weak self] device in
+            self?.devices.append(device)
+            homeView.updateDevices(newDevices: self?.devices ?? [])
+        }
+            
         view.addSubview(homeView)
         
         homeView.snp.makeConstraints { make in
@@ -31,10 +38,12 @@ class HomeViewController: UIViewController {
 
         homeView.addDeviceCallback = { [weak self] in
             guard let self = self else { return }
-            self.navigationController?.pushViewController(DeviceViewController(), animated: false)
+            self.navigationController?.pushViewController(deviceViewController, animated: false)
         }
         
-        
+        homeView.editDeviceCallback = { [weak self] idx in
+            self?.navigationController?.pushViewController(DeviceViewController(device: self?.devices[idx]), animated: false)
+        }
         
     }
 }

@@ -12,6 +12,8 @@ class CommandView: UIView {
     
     var name = ""
     var command = ""
+    var save: ((_ command: Command) -> Void)?
+    
     init() {
         super.init(frame: CGRect.zero)
         
@@ -28,6 +30,7 @@ class CommandView: UIView {
         }
         
         let saveButton = BasicButton(content: "Save")
+        saveButton.addTarget(self, action: #selector(saveHandler), for: .touchUpInside)
         addSubview(nameField)
         addSubview(commandField)
         addSubview(saveButton)
@@ -59,8 +62,9 @@ class CommandView: UIView {
     @objc func handleGesture() {
         endEditing(false)
     }
-    @objc func controlMethodSelected(_ sender: UISegmentedControl) {
-        
+    
+    @objc func saveHandler(_ sender: UIButton) {
+        save?(Command(name: name, command: command))
     }
     
     required init?(coder: NSCoder) {

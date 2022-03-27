@@ -26,6 +26,8 @@
 		231DA23B25EA5AC6007E6F98 /* CommandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231DA23A25EA5AC6007E6F98 /* CommandView.swift */; };
 		231DA23E25EA5AD1007E6F98 /* CommandViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231DA23D25EA5AD1007E6F98 /* CommandViewController.swift */; };
 		231DA24125EA6272007E6F98 /* TextViewWithLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 231DA24025EA6272007E6F98 /* TextViewWithLabel.swift */; };
+		7FA6733F27EFC37300E65EE3 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA6733E27EFC37300E65EE3 /* Command.swift */; };
+		7FA6734227F06B1B00E65EE3 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7FA6734127F06B1B00E65EE3 /* Device.swift */; };
 		9A63E610604B9DBC83F3E001 /* Pods_BoomSender.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9FD34C98E48A0A097132D2 /* Pods_BoomSender.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +56,8 @@
 		3EF9D128117B55777049AFF5 /* Pods-BoomSender.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoomSender.release.xcconfig"; path = "Target Support Files/Pods-BoomSender/Pods-BoomSender.release.xcconfig"; sourceTree = "<group>"; };
 		5E9FD34C98E48A0A097132D2 /* Pods_BoomSender.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoomSender.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B7320F592383A615EFAF481 /* Pods-BoomSender.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoomSender.debug.xcconfig"; path = "Target Support Files/Pods-BoomSender/Pods-BoomSender.debug.xcconfig"; sourceTree = "<group>"; };
+		7FA6733E27EFC37300E65EE3 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
+		7FA6734127F06B1B00E65EE3 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +127,7 @@
 			children = (
 				231DA21825DF1D96007E6F98 /* DeviceView.swift */,
 				231DA21B25DF1DA5007E6F98 /* DeviceViewController.swift */,
+				7FA6734127F06B1B00E65EE3 /* Device.swift */,
 			);
 			path = Device;
 			sourceTree = "<group>";
@@ -149,6 +154,7 @@
 			children = (
 				231DA23A25EA5AC6007E6F98 /* CommandView.swift */,
 				231DA23D25EA5AD1007E6F98 /* CommandViewController.swift */,
+				7FA6733E27EFC37300E65EE3 /* Command.swift */,
 			);
 			path = Command;
 			sourceTree = "<group>";
@@ -288,6 +294,7 @@
 				231DA23425E834B3007E6F98 /* CollectionView.swift in Sources */,
 				231DA22E25E82B92007E6F98 /* NumberFieldWithLabel.swift in Sources */,
 				231DA23E25EA5AD1007E6F98 /* CommandViewController.swift in Sources */,
+				7FA6733F27EFC37300E65EE3 /* Command.swift in Sources */,
 				231DA22825E59AC9007E6F98 /* TextFieldNoCaret.swift in Sources */,
 				2307A8E325C55AE800293C0B /* BasicButton.swift in Sources */,
 				231DA24125EA6272007E6F98 /* TextViewWithLabel.swift in Sources */,
@@ -299,6 +306,7 @@
 				231DA23125E82BAA007E6F98 /* NumberField.swift in Sources */,
 				2307A8D825C4A18800293C0B /* HomeView.swift in Sources */,
 				231DA22525E59186007E6F98 /* BottomPicker.swift in Sources */,
+				7FA6734227F06B1B00E65EE3 /* Device.swift in Sources */,
 				2307A8B925C4839F00293C0B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

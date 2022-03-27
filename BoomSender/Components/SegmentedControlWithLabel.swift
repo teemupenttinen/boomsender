@@ -9,6 +9,8 @@ import UIKit
 
 class SegmentedControlWithLabel: UIView {
     
+    var changedHandler: ((_ sender: UISegmentedControl) -> Void)?
+    
     init(items: [String], label: String){
         super.init(frame: .zero)
         
@@ -17,9 +19,11 @@ class SegmentedControlWithLabel: UIView {
         textLabel.textColor = .white
        
         let segmentedControl = UISegmentedControl(items: items)
+        segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(valueChanged), for: .valueChanged)
         segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: .normal)
         segmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.black], for: .selected)
+        
         let stackView = UIStackView()
         
         stackView.addSubview(textLabel)
@@ -47,7 +51,7 @@ class SegmentedControlWithLabel: UIView {
     }
     
     @objc func valueChanged(_ sender: UISegmentedControl) {
-        
+        changedHandler?(sender)
     }
     
     required init?(coder: NSCoder) {

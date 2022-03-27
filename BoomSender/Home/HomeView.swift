@@ -10,17 +10,17 @@ import SnapKit
 
 class HomeView: UIView {
     
-    var devices: [String] = []
+    var devices: [Device] = []
     var deleteDeviceCallback: ((_ idx: Int) -> Void)?
     var editDeviceCallback: ((_ idx: Int) -> Void)?
     var addDeviceCallback: (() -> Void)?
     var collectionView: CollectionView?
     
-    init(devices: [String]) {
+    init(devices: [Device]) {
         
         super.init(frame: CGRect.zero)
         self.devices = devices
-        collectionView = CollectionView(items: devices, title: "Devices", placeholder: "Add your first device!")
+        collectionView = CollectionView(items: devices.map { $0.name }, title: "Devices", placeholder: "Add your first device!")
         
         collectionView?.addCallback = { [weak self] in
             self?.addDeviceCallback?()
@@ -45,7 +45,8 @@ class HomeView: UIView {
         }
     }
     
-    func updateDevices(newDevices: [String]) {
+    func updateDevices(newDevices: [Device]) {
+        collectionView?.items = newDevices.map {$0.name}
         self.devices = newDevices
         collectionView?.reloadData()
     }

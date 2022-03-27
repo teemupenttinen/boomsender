@@ -176,5 +176,10 @@ extension CollectionView : UICollectionViewDataSource {
 extension CollectionView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print(indexPath.row)
+        
+        if let cb = self.editCallback {
+            cb(indexPath.row)
+        }
+        
     }
 }
